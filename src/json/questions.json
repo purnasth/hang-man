@@ -1,0 +1,12 @@
+[
+  {
+    "dialogue": "I am Iron Man.",
+    "options": ["Thor", "Black Widow", "Iron Man", "Captain America"],
+    "correctAnswer": "Iron Man"
+  },
+  {
+    "dialogue": "I can do this all day.",
+    "options": ["Spider-Man", "Hulk", "Captain America", "Black Panther"],
+    "correctAnswer": "Captain America"
+  }
+]
