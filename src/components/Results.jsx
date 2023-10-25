@@ -1,6 +1,6 @@
 import React from "react";
 
-const Results = ({ userAnswer, correctAnswer, onRestart }) => {
+const Results = ({ userAnswer, correctAnswer, onRestart, score }) => {
   const isCorrect = userAnswer === correctAnswer;
 
   return (
@@ -10,6 +10,7 @@ const Results = ({ userAnswer, correctAnswer, onRestart }) => {
         {isCorrect ? "Correct!" : "Incorrect!"}
       </p>
       <p className="text-lg">Correct answer: {correctAnswer}</p>
+      <p className="text-lg">Your score: {score}</p> {/* Display the score */}
       <button
         className="bg-blue-500 text-white rounded-md p-2 m-1 cursor-pointer"
         onClick={onRestart}

@@ -1,4 +1,5 @@
-import React, { useState, useEffect } from "react";
+// App.jsx
+import React, { useState } from "react";
 import Question from "./components/Question";
 import Results from "./components/Results";
 import questionsData from "./json/questions.json";
@@ -8,10 +9,19 @@ const App = () => {
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
   const [showResults, setShowResults] = useState(false);
   const [userAnswer, setUserAnswer] = useState(null);
+  const [score, setScore] = useState(0); // Added score state
 
   const handleAnswer = (selectedAnswer) => {
     setUserAnswer(selectedAnswer);
+    checkAnswer(selectedAnswer); // Check the answer for scoring
     setShowResults(true);
+  };
+
+  const checkAnswer = (selectedAnswer) => {
+    const currentQuestion = questions[currentQuestionIndex];
+    if (selectedAnswer === currentQuestion.correctAnswer) {
+      setScore(score + 1); // Increment the score if the answer is correct
+    }
   };
 
   const handleNextQuestion = () => {
@@ -34,6 +44,7 @@ const App = () => {
             userAnswer={userAnswer}
             correctAnswer={currentQuestion.correctAnswer}
             onRestart={handleNextQuestion}
+            score={score} // Pass the score to the Results component
           />
         ) : (
           <Question
