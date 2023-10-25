@@ -19,30 +19,51 @@ const App = () => {
     currentRound * questionsPerRound
   );
 
+  const resetQuestionStyles = () => {
+    document.querySelectorAll(".option").forEach((element) => {
+      element.style.backgroundColor = "";
+      element.style.transform = "none";
+    });
+  };
+
   const handleAnswer = (selectedAnswer) => {
     const currentQuestion = roundQuestions[currentQuestionIndex];
     const isCorrect = selectedAnswer === currentQuestion.correctAnswer;
-
+  
     if (isCorrect) {
       setScore(score + 1);
     }
-
+  
     const resultsCopy = [...questionResults];
     resultsCopy[currentRound - 1 + currentQuestionIndex] = {
       correctAnswer: currentQuestion.correctAnswer,
       userAnswer: selectedAnswer,
     };
     setQuestionResults(resultsCopy);
-
+  
     setUserAnswer(selectedAnswer);
-
+  
+    // Apply styles to correct and incorrect answers for the current question
+    document.querySelectorAll(".option").forEach((element) => {
+      const option = element.textContent;
+      if (option === selectedAnswer) {
+        element.style.backgroundColor = isCorrect ? "#A0FFA0" : "#FFA0A0"; // Light green for correct, light red for incorrect
+        element.style.transform = isCorrect ? "scale(1.25)" : "none";
+      } else if (option === currentQuestion.correctAnswer) {
+        element.style.backgroundColor = "#A0FFA0"; // Light green
+        element.style.transform = "scale(1.25)";
+      }
+    });
+  
     setTimeout(() => {
       handleNextQuestion();
     }, 2000); // Automatically transition to the next question after 2 seconds
   };
 
   const handleNextQuestion = () => {
+    resetQuestionStyles();
     setUserAnswer(null);
+
     if (currentQuestionIndex < questionsPerRound - 1) {
       setCurrentQuestionIndex(currentQuestionIndex + 1);
     } else {
@@ -95,12 +116,8 @@ const App = () => {
             {currentQuestion.options.map((option, index) => (
               <div
                 key={index}
-                className={`p-2 rounded-md m-1 cursor-pointer ${
-                  userAnswer === option
-                    ? option === currentQuestion.correctAnswer
-                      ? "bg-green-200 transform scale-125"
-                      : "bg-red-200"
-                    : ""
+                className={`option p-2 rounded-md m-1 cursor-pointer ${
+                  userAnswer === option ? "" : "hover:bg-blue-200"
                 }`}
                 onClick={() => {
                   if (!userAnswer) {
