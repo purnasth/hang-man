@@ -6,7 +6,7 @@ const Question = ({
 
   return (
     <div>
-      <p className="text-lg font-bold mb-2">{dialogue}</p>
+      <p className="text-lg font-bold italic mb-2">{dialogue}</p>
     </div>
   );
 };

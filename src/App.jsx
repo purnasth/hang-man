@@ -9,7 +9,9 @@ const App = () => {
   const [userAnswer, setUserAnswer] = useState(null);
   const [score, setScore] = useState(0);
   const [showNextRoundPrompt, setShowNextRoundPrompt] = useState(false);
-  const [questionResults, setQuestionResults] = useState(Array(questionsData.length).fill(null));
+  const [questionResults, setQuestionResults] = useState(
+    Array(questionsData.length).fill(null)
+  );
 
   const maxRounds = 10;
   const questionsPerRound = 10;
@@ -29,32 +31,31 @@ const App = () => {
   const handleAnswer = (selectedAnswer) => {
     const currentQuestion = roundQuestions[currentQuestionIndex];
     const isCorrect = selectedAnswer === currentQuestion.correctAnswer;
-  
+
     if (isCorrect) {
       setScore(score + 1);
     }
-  
+
     const resultsCopy = [...questionResults];
     resultsCopy[currentRound - 1 + currentQuestionIndex] = {
       correctAnswer: currentQuestion.correctAnswer,
       userAnswer: selectedAnswer,
     };
     setQuestionResults(resultsCopy);
-  
+
     setUserAnswer(selectedAnswer);
-  
-    // Apply styles to correct and incorrect answers for the current question
+
     document.querySelectorAll(".option").forEach((element) => {
       const option = element.textContent;
       if (option === selectedAnswer) {
-        element.style.backgroundColor = isCorrect ? "#A0FFA0" : "#FFA0A0"; // Light green for correct, light red for incorrect
-        element.style.transform = isCorrect ? "scale(1.25)" : "none";
+        element.style.backgroundColor = isCorrect ? "#A0FFA0" : "#FFA0A0";
+        element.style.transform = isCorrect ? "scale(1.1)" : "none";
       } else if (option === currentQuestion.correctAnswer) {
-        element.style.backgroundColor = "#A0FFA0"; // Light green
-        element.style.transform = "scale(1.25)";
+        element.style.backgroundColor = "#A0FFA0";
+        element.style.transform = "scale(1.1)";
       }
     });
-  
+
     setTimeout(() => {
       handleNextQuestion();
     }, 2000); // Automatically transition to the next question after 2 seconds
@@ -86,23 +87,30 @@ const App = () => {
   const currentQuestion = roundQuestions[currentQuestionIndex];
 
   return (
-    <div className="min-h-screen bg-gray-100 flex items-center justify-center">
-      <div className="bg-white p-4 rounded-md shadow-md relative">
-        <div className="text-xl font-semibold mb-4">
-          Round {currentRound}/{maxRounds}
+    <div className="min-h-screen bg-gray-200 flex items-center justify-center">
+      <div className="bg-white p-6 rounded-xl shadow-lg transition-all duration-300 ease-in-out hover:shadow-2xl relative w-[90%] md:h-[500px] md:w-[500px] mx-auto flex flex-col justify-center">
+        <h1 className="text-2xl text-center uppercase font-bold pt-2 pb-4">
+          Marvel Quiz
+        </h1>
+        <div className="flex justify-between">
+          <div className="text-md font-semibold mb-4">
+            Question {currentQuestionIndex + 1}/{questionsPerRound}
+          </div>
+          <div className="text-md font-semibold mb-4 ">
+            Round {currentRound}/{maxRounds}
+          </div>
         </div>
-        <div className="text-lg font-bold mb-4">
-          Question {currentQuestionIndex + 1}/{questionsPerRound}
-        </div>
-        <div className="text-lg font-semibold mb-4">
+        <div className="text-lg text-center text-[#1fb31f] font-bold mb-4">
           Score: {score}
         </div>
         {showNextRoundPrompt ? (
-          <div className="mb-4">
-            <p className="text-lg mb-2">Round {currentRound - 1} is over.</p>
+          <div className="flex flex-col mb-4">
+            <p className="text-lg text-center mb-2">
+              Round {currentRound - 1} is over.
+            </p>
             <button
               onClick={handleNextRound}
-              className="bg-blue-500 text-white rounded-md p-2 cursor-pointer"
+              className="border-2 bg-blue-500 text-white font-semibold border-blue-500 transition-all duration-300 ease-in-out hover:bg-white hover:text-blue-500 rounded-md p-2 m-1 cursor-pointer mt-4"
             >
               Play Round {currentRound}
             </button>
@@ -116,7 +124,7 @@ const App = () => {
             {currentQuestion.options.map((option, index) => (
               <div
                 key={index}
-                className={`option p-2 rounded-md m-1 cursor-pointer ${
+                className={`bg-gray-200 option p-2 rounded-md m-1 cursor-pointer  ${
                   userAnswer === option ? "" : "hover:bg-blue-200"
                 }`}
                 onClick={() => {
@@ -130,7 +138,7 @@ const App = () => {
             ))}
             <button
               onClick={handleNextQuestion}
-              className="bg-blue-500 text-white rounded-md p-2 m-1 cursor-pointer mt-4"
+              className="border-2 bg-blue-500 text-white font-semibold border-blue-500 transition-all duration-300 ease-in-out hover:bg-white hover:text-blue-500 rounded-md p-2 m-1 cursor-pointer mt-4"
             >
               Next Question
             </button>
