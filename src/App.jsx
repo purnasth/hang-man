@@ -87,7 +87,7 @@ const App = () => {
   const currentQuestion = roundQuestions[currentQuestionIndex];
 
   return (
-    <div className="min-h-screen bg-gray-200 flex items-center justify-center">
+    <div className="min-h-screen bg-gray-100 flex items-center justify-center">
       <div className="bg-white p-6 rounded-xl shadow-lg transition-all duration-300 ease-in-out hover:shadow-2xl relative w-[90%] md:h-[500px] md:w-[500px] mx-auto flex flex-col justify-center">
         <h1 className="text-2xl text-center uppercase font-bold pt-2 pb-4">
           Marvel Quiz
@@ -124,7 +124,7 @@ const App = () => {
             {currentQuestion.options.map((option, index) => (
               <div
                 key={index}
-                className={`bg-gray-200 option p-2 rounded-md m-1 cursor-pointer  ${
+                className={`bg-gray-100 option p-2 rounded-md m-1 cursor-pointer  ${
                   userAnswer === option ? "" : "hover:bg-blue-200"
                 }`}
                 onClick={() => {
