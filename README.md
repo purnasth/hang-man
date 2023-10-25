@@ -16,9 +16,19 @@ This is a Marvel Quiz game. It is a CLI app built using vite + react & tailwindC
 
 ```bash
   git clone
+```
+
+```
     cd marvel-quiz
+```
+
+```
     npm install
+```
+
+```
     npm run dev
+
 ```
 
 ## Tech Stack
